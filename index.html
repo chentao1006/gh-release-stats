@@ -40,42 +40,55 @@
         </div>
         <div class="max-w-7xl mx-auto">
             <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">GitHub Release Tracker</h1>
-            <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 mb-6 justify-center">
-                <input
-                    type="text"
-                    id="repoInput"
-                    placeholder="ramiawar/dataline"
-                    class="flex-shrink px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                <button onclick="trackReleases()" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Track Releases</button>
-            </div>
-            <div id="chartSection" class="mb-8 hidden flex flex-col">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Asset Downloads for Latest Releases</h2>
-                <div class="p-4 max-h-96 max-w-7xl bg-white border border-gray-300 rounded-md">
-                    <button id="toggleLegendButton" class="text-sm p-1 px-2 m-1 bg-gray-100 border border-gray-300 rounded-md">Toggle Legend</button>
-                    <canvas id="releaseChart"></canvas>
-                </div>
-            </div>
-            <div id="tableSection" class="hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-semibold text-gray-900">Release Data</h2>
-                    <button onclick="exportToCSV()" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Export to CSV</button>
-                </div>
-                <div class="overflow-x-auto overflow-y-scroll rounded-md border border-gray-300 max-h-96">
-                    <table id="releaseTable" class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tag</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Downloads</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Downloads</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200"></tbody>
-                    </table>
-                </div>
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Sidebar -->
+                <aside class="w-full md:w-64 flex-shrink-0 bg-white p-4 rounded-md border border-gray-300 shadow-sm h-fit">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Search History</h2>
+                    <ul id="historyList" class="space-y-2 max-h-[500px] overflow-y-auto">
+                        <!-- History items injected here -->
+                    </ul>
+                </aside>
+                
+                <!-- Main Content -->
+                <main class="flex-1 min-w-0">
+                    <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 mb-6 justify-center">
+                        <input
+                            type="text"
+                            id="repoInput"
+                            placeholder="ramiawar/dataline"
+                            class="flex-shrink px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"
+                        >
+                        <button onclick="trackReleases()" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Track Releases</button>
+                    </div>
+                    <div id="chartSection" class="mb-8 hidden flex flex-col">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Asset Downloads for Latest Releases</h2>
+                        <div class="p-4 max-h-96 w-full bg-white border border-gray-300 rounded-md">
+                            <button id="toggleLegendButton" class="text-sm p-1 px-2 m-1 bg-gray-100 border border-gray-300 rounded-md">Toggle Legend</button>
+                            <canvas id="releaseChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="tableSection" class="hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-900">Release Data</h2>
+                            <button onclick="exportToCSV()" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Export to CSV</button>
+                        </div>
+                        <div class="overflow-x-auto overflow-y-scroll rounded-md border border-gray-300 max-h-96">
+                            <table id="releaseTable" class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Date</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tag</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Downloads</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Downloads</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     </div>
@@ -91,6 +104,80 @@
     <script>
         let chart;
         let releaseData;
+
+        const HISTORY_KEY = 'gh_release_stats_history';
+
+        function getHistory() {
+            const history = localStorage.getItem(HISTORY_KEY);
+            return history ? JSON.parse(history) : [];
+        }
+
+        function saveToHistory(repo) {
+            let history = getHistory();
+            if (history.includes(repo)) {
+                return; // Do not reorder if it already exists
+            }
+            history.unshift(repo);
+            if (history.length > 20) {
+                history.pop();
+            }
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            renderHistory();
+        }
+
+        function removeFromHistory(repo, event) {
+            event.stopPropagation();
+            let history = getHistory();
+            history = history.filter(item => item !== repo);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            renderHistory();
+        }
+
+        function loadFromHistory(repo) {
+            document.getElementById('repoInput').value = repo;
+            trackReleases();
+        }
+
+        function renderHistory() {
+            const history = getHistory();
+            const listElement = document.getElementById('historyList');
+            if (!listElement) return;
+            
+            listElement.innerHTML = '';
+
+            if (history.length === 0) {
+                listElement.innerHTML = '<li class="text-sm text-gray-500 italic">No search history.</li>';
+                return;
+            }
+
+            history.forEach(repo => {
+                const li = document.createElement('li');
+                li.className = 'flex justify-between items-center bg-gray-50 p-2 rounded-md hover:bg-gray-100 cursor-pointer border border-gray-200';
+                li.onclick = () => loadFromHistory(repo);
+                
+                const span = document.createElement('span');
+                span.className = 'text-sm font-medium text-gray-700 truncate mr-2';
+                span.textContent = repo;
+                span.title = repo;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'text-gray-400 hover:text-red-500 focus:outline-none p-1 transition-colors';
+                deleteBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                `;
+                deleteBtn.onclick = (e) => removeFromHistory(repo, e);
+
+                li.appendChild(span);
+                li.appendChild(deleteBtn);
+                listElement.appendChild(li);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHistory();
+        });
 
         document.getElementById('repoInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -232,6 +319,9 @@
                 // Show the chart and table sections
                 document.getElementById('chartSection').classList.remove('hidden');
                 document.getElementById('tableSection').classList.remove('hidden');
+
+                // Save to history upon success
+                saveToHistory(repo);
             } catch (error) {
                 console.error('Error:', error);
                 alert('Failed to fetch release data. Check the console for details.');
